@@ -1,4 +1,4 @@
-import { isDocUrl } from './doc-check';
+import { isDocUrl } from './doc-check-open';
 
 async function main() {
   const result1 = await isDocUrl("https://github.com/axios/axios");
