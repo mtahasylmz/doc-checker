@@ -34,7 +34,7 @@ const DEFAULT_CONFIG: Config = {
 
   maxRequestsPerMinute: 10,
   cacheTtl: 86400, // 24 hours
-  maxUrlContentLength: 50_000,
+  maxUrlContentLength: 500_000_000,
   minLlmConfidence: 0.7,
 };
 
@@ -401,23 +401,23 @@ export async function isDocUrl(url: string): Promise<boolean> {
   return await validator.isDocUrl(url);
 }
 
-// // ----------------------------------------------------
-// // USAGE EXAMPLE
-// // ----------------------------------------------------
-// (async function runExamples() {
-//   const validator = new DocumentationUrlValidator();
+// ----------------------------------------------------
+// USAGE EXAMPLE
+// ----------------------------------------------------
+(async function runExamples() {
+  const validator = new DocumentationUrlValidator();
 
-//   const urls = [
-//     'https://github.com/axios/axios',          // Likely not dedicated docs, but might have some doc content
-//     'https://github.com/axios/axios-docs',     // Possibly doc repo
-//     'https://docs.github.com/en',              // Dedicated doc domain
-//     'https://reactjs.org/docs/getting-started.html',
-//     'https://www.npmjs.com/package/axios',
-//     'https://nodejs.org/api/documentation.html',
-//   ];
+  const urls = [
+    'https://github.com/axios/axios',          // Likely not dedicated docs, but might have some doc content
+    'https://github.com/axios/axios-docs',     // Possibly doc repo
+    'https://docs.github.com/en',              // Dedicated doc domain
+    'https://reactjs.org/docs/getting-started.html',
+    'https://www.npmjs.com/package/axios',
+    'https://nodejs.org/api/documentation.html',
+  ];
 
-//   for (const url of urls) {
-//     const isDoc = await validator.isDocUrl(url);
-//     console.log(`${url} -> ${isDoc ? '[DOC]' : '[NOT DOC]'}`);
-//   }
-// })();
+  for (const url of urls) {
+    const isDoc = await validator.isDocUrl(url);
+    console.log(`${url} -> ${isDoc ? '[DOC]' : '[NOT DOC]'}`);
+  }
+})();
