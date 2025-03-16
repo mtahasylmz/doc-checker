@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
-    "test": "ts-node src/doc-url-validator.ts"
+    "test": "ts-node src/doc-check.ts"
   },
   "keywords": [],
   "author": "",

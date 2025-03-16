@@ -10,4 +10,3 @@ And you can run the test as follows
 npm install
 npm start
 ```
-

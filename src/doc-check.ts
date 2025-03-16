@@ -53,7 +53,6 @@ class DocumentationUrlValidator {
   
   constructor(config: Partial<Config> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
-    console.log(DEFAULT_CONFIG.llmApiKey);
     if (!this.config.llmApiKey) {
       throw new Error('LLM API key is required');
     }
@@ -321,7 +320,6 @@ class DocumentationUrlValidator {
         // If we can't fetch content, just use the URL itself
         pageContent = '';
       }
-      
       const response = await this.openai.chat.completions.create({
         model: this.config.llmModel,
         messages: [
@@ -408,3 +406,4 @@ async function runExamples() {
     console.log(`${url} -> ${result ? 'Documentation' : 'Not documentation'}`);
     }
 }
+runExamples().catch(console.error);
