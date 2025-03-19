@@ -147,7 +147,7 @@ export async function isDocUrl(url: string): Promise<boolean> {
 
     // Score based on docs keywords in URL
     if (hasDocsKeywords) {
-      score += 0.3;
+      score += 0.2;
     }
 
     // Score based on markdown files count
