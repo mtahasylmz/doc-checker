@@ -11,4 +11,3 @@ npm install
 npm run build
 npm start
 ```
-The following prompt clarifies my intention while doing this project, which is an actual prompt i used:
