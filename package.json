@@ -5,18 +5,25 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts",
+    "start": "node --trace-warnings --experimental-specifier-resolution=node dist/index.js",
     "test": "ts-node src/doc-check.ts"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^21.1.1",
+    "adm-zip": "^0.5.16",
     "axios": "^1.8.3",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.7",
+    "glob": "^11.0.1",
     "openai": "^4.87.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7"
   }
 }
