@@ -6,9 +6,9 @@ async function main() : Promise<void>{
   const result3 = await isDocUrl("https://github.com/reactjs/react.dev");
   
   
-  console.log(`Example 1: ${result1.isValid} and the reason is ${result1.reason}`);
-  console.log(`Example 2: ${result2.isValid} and the reason is ${result2.reason}`);
-  console.log(`Example 2: ${result3.isValid} and the reason is ${result3.reason}`);
+  console.log(`Example 1: ${result1} `);
+  console.log(`Example 2: ${result2} `);
+  console.log(`Example 2: ${result3} `);
 }
 
 main().catch(console.error);

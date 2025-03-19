@@ -21,7 +21,7 @@ interface RepoAnalysisResult {
 }
 
 
-export async function isDocUrl(url: string): Promise<RepoAnalysisResult> {
+export async function isDocUrl(url: string): Promise<boolean> {
 
     //if a valid url
   function isValidUrl(url: string): boolean {
@@ -151,7 +151,7 @@ export async function isDocUrl(url: string): Promise<RepoAnalysisResult> {
     }
 
     // Score based on markdown files count
-    console.log(mdFilesCount);
+    
     if (mdFilesCount > 50) { //if there are a lot of md files, we assume that it is a doc repo no matter what the llm says.
       score += 1.0;
     } else if (mdFilesCount > 20) {//if there are moderate number of md files, if the llm says yes, then it is a doc repo.
@@ -172,16 +172,17 @@ export async function isDocUrl(url: string): Promise<RepoAnalysisResult> {
     return score;
   }
 
+
   //no more helper functions, below is the main logic
   try {
     // Step 1: Check if it's a valid URL
     if (!isValidUrl(url)) {
-      return { isValid: false, reason: 'Invalid URL format' };
+      return false;
     }
 
     // Step 2: Verify it's a GitHub repository URL
     if (!isGithubRepoUrl(url)) {
-      return { isValid: false, reason: 'Not a GitHub repository URL' };
+      return false;
     }
 
     // Step 3: Check for documentation keywords in the URL
@@ -195,7 +196,7 @@ export async function isDocUrl(url: string): Promise<RepoAnalysisResult> {
     try {
       cloneRepository(repoInfo.owner, repoInfo.repoName, tempDir);
     } catch (error: any) {
-      return { isValid: false, reason: `Failed to clone repository: ${error.message}` };
+      return false;
     }
 
     // Step 6: Count markdown files
@@ -224,19 +225,18 @@ export async function isDocUrl(url: string): Promise<RepoAnalysisResult> {
     const confidenceScore = calculateConfidenceScore(hasDocsKeywords, mdFilesCount, llmEvaluation);
     const isValid = confidenceScore >= 0.7;
 
-    return {
-      isValid,
-      reason: isValid ? 'Repository appears to be documentation' : 'Repository does not appear to be documentation',
-      details: {
-        isGithubUrl: true,
-        containsDocsKeywords: hasDocsKeywords,
-        mdFilesCount,
-        llmEvaluation,
-        confidenceScore
-      }
-    };
+    return isValid;
+    //   reason: isValid ? 'Repository appears to be documentation' : 'Repository does not appear to be documentation',
+    //   details: {
+    //     isGithubUrl: true,
+    //     containsDocsKeywords: hasDocsKeywords,
+    //     mdFilesCount,
+    //     llmEvaluation,
+    //     confidenceScore
+    //   }
+    // };
   } catch (error: any) {
-    return { isValid: false, reason: `Error during validation: ${error.message}` };
+    return false;
   }
 }
 
